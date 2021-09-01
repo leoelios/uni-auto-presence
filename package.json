@@ -1,0 +1,19 @@
+{
+  "name": "presence-confirm",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "repository": "git@github.com:leoelias023/presence-confirm.git",
+  "author": "Leonardo Elias <leoelias02@hotmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.10",
+    "querystring": "^0.2.1"
+  },
+  "devDependencies": {
+    "prettier": "^2.3.2"
+  }
+}
