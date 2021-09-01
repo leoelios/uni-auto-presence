@@ -1,3 +1,4 @@
+require("dotenv").config();
 const UniaraService = require("./client/UniaraClient");
 const getUsername = require("./service/getUsername");
 const { monitorPresence } = require("./service");
@@ -5,7 +6,7 @@ const { draw } = require("./constants");
 
 const { UNI_RA, UNI_PASSWORD } = process.env;
 
-function printWelcome({ username, ra, password }) {
+function printWelcome({ username, ra }) {
   const header = `########################## Welcome ${
     username || "elementoX"
   } ##########################`;
