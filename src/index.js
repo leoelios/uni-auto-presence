@@ -12,7 +12,6 @@ function printWelcome({ username, ra }) {
   } ##########################`;
   const footer = Array(header.length).fill("#").join("") + "\n";
 
-  console.log(draw);
   console.log(header);
 
   console.log(`\n   RA ${ra}`);
@@ -34,6 +33,8 @@ function printPulse({ after, before }) {
   };
 
   await UniaraService.authenticate(user_parameters);
+
+  console.log(draw);
 
   printWelcome({
     username: await getUsername(),
