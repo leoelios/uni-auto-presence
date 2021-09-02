@@ -1,4 +1,6 @@
 require("dotenv").config();
+const schedule = require("node-schedule");
+
 const UniaraService = require("./client/UniaraClient");
 const getUsername = require("./service/getUsername");
 const { monitorPresence } = require("./service");
@@ -26,24 +28,34 @@ function printPulse({ after, before }) {
   );
 }
 
-(async () => {
-  const user_parameters = {
-    ra: UNI_RA,
-    password: UNI_PASSWORD,
-  };
+const userParameters = {
+  ra: UNI_RA,
+  password: UNI_PASSWORD,
+};
 
-  await UniaraService.authenticate(user_parameters);
+console.log(draw);
 
-  console.log(draw);
+function createRule() {
+  const rule = new schedule.RecurrenceRule();
+  rule.dayOfWeek = [new schedule.Range(1, 5)];
+  rule.hour = new schedule.Range(19, 23);
+  rule.second = [10, 40];
 
-  printWelcome({
-    username: await getUsername(),
-    ...user_parameters,
+  return rule;
+}
+
+UniaraService.authenticate(userParameters)
+  .then(async (_) => {
+    printWelcome({
+      username: await getUsername(),
+      ...userParameters,
+    });
+
+    schedule.scheduleJob(createRule(), async (_) => {
+      console.log("executando");
+      printPulse(await monitorPresence());
+    });
+  })
+  .catch((err) => {
+    console.error(err);
   });
-
-  printPulse(await monitorPresence());
-
-  setInterval(async () => {
-    printPulse(await monitorPresence());
-  }, 30000);
-})();
