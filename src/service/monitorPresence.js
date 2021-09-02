@@ -36,7 +36,7 @@ module.exports = async () => {
       after: statuses.REGISTERED,
     };
   } else if (data) {
-    const { success } = setTimeoutAsync(markPresence, 10000);
+    const { success } = await setTimeoutAsync(markPresence, 10000);
 
     return {
       before: statuses.PENDING,
