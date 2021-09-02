@@ -2,7 +2,7 @@ FROM node:16
 
 copy . .
 
-run npm install yarn \
-    && yarn install
+run npm install -g yarn \
+    && yarn
 
 cmd ['yarn', 'start']
