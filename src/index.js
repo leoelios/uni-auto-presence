@@ -41,7 +41,7 @@ function createRule() {
   const rule = new schedule.RecurrenceRule();
   rule.dayOfWeek = [new schedule.Range(1, 5)];
   rule.hour = new schedule.Range(19, 23);
-  rule.second = [10, 40];
+  rule.second = [15, 40];
 
   return rule;
 }
@@ -54,7 +54,6 @@ UniaraService.authenticate(userParameters)
     });
 
     schedule.scheduleJob(createRule(), async (_) => {
-      console.log("executando");
       printPulse(await monitorPresence());
     });
   })
