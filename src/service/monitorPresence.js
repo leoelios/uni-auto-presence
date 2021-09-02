@@ -17,6 +17,13 @@ async function markPresence() {
   };
 }
 
+const setTimeoutAsync = (cb, delay) =>
+  new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(cb());
+    }, delay);
+  });
+
 module.exports = async () => {
   const { data } = await UniaraService.managePresence({
     action: MONTIOR_ACTION,
@@ -29,7 +36,8 @@ module.exports = async () => {
       after: statuses.REGISTERED,
     };
   } else if (data) {
-    const { success } = await markPresence();
+    const { success } = setTimeoutAsync(markPresence, 10000);
+
     return {
       before: statuses.PENDING,
       after: success ? statuses.REGISTERED : statuses.PENDING,
