@@ -1,8 +1,9 @@
 FROM node:16
 
-copy . .
+COPY . /opt/auto-presence
 
-run npm install -g yarn \
-    && yarn
+WORKDIR /opt/auto-presence
 
-cmd ['yarn', 'start']
+RUN yarn
+
+entrypoint ["yarn", "start"]

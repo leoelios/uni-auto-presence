@@ -17,7 +17,9 @@ function printWelcome({ username, ra }) {
   console.log(header);
 
   console.log(`\n   RA ${ra}`);
-  console.log(`   Logged in successfully ${new Date().toISOString()}\n`);
+  console.log(
+    `   Logged in successfully ${new Date().toLocaleString("pt-BR")}\n`
+  );
 
   console.log(footer);
 }
