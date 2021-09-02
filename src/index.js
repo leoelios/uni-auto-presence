@@ -8,6 +8,8 @@ const { draw } = require("./constants");
 
 const { UNI_RA, UNI_PASSWORD } = process.env;
 
+const defaultLocale = "pt-BR";
+
 function printWelcome({ username, ra }) {
   const header = `########################## Welcome ${
     username || "elementoX"
@@ -18,7 +20,7 @@ function printWelcome({ username, ra }) {
 
   console.log(`\n   RA ${ra}`);
   console.log(
-    `   Logged in successfully ${new Date().toLocaleString("pt-BR")}\n`
+    `   Logged in successfully ${new Date().toLocaleString(defaultLocale)}\n`
   );
 
   console.log(footer);
@@ -45,6 +47,30 @@ function createRule() {
 
   return rule;
 }
+
+function createRuleAuthentication() {
+  const rule = new schedule.RecurrenceRule();
+  rule.dayOfWeek = [new schedule.Range(1, 5)];
+  rule.hour = 19;
+  rule.minute = 0;
+  rule.second = 0;
+
+  return rule;
+}
+
+schedule.scheduleJob(createRuleAuthentication(), async (_) => {
+  UniaraService.authenticate(userParameters)
+    .then(({ createdSession }) => {
+      console.log(
+        "Authentication performed successfully " +
+          JSON.stringify(createdSession) +
+          new Date().toLocaleString(defaultLocale)
+      );
+    })
+    .catch((err) => {
+      console.error("Ocurred a error during authentication " + err.message);
+    });
+});
 
 UniaraService.authenticate(userParameters)
   .then(async (_) => {
