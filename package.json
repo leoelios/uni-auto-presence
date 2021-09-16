@@ -13,7 +13,8 @@
     "cheerio": "^1.0.0-rc.10",
     "dotenv": "^10.0.0",
     "node-schedule": "^2.0.0",
-    "querystring": "^0.2.1"
+    "querystring": "^0.2.1",
+    "yargs": "^17.1.1"
   },
   "devDependencies": {
     "prettier": "^2.3.2"

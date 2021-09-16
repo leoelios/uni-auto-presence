@@ -1,5 +1,8 @@
 require("dotenv").config();
 const schedule = require("node-schedule");
+const yargs = require("yargs/yargs");
+const { hideBin } = require("yargs/helpers");
+const argv = yargs(hideBin(process.argv)).argv;
 
 const UniaraService = require("./client/UniaraClient");
 const getUsername = require("./service/getUsername");
@@ -7,6 +10,7 @@ const { monitorPresence } = require("./service");
 const { draw } = require("./constants");
 
 const { UNI_RA, UNI_PASSWORD } = process.env;
+const { login, password } = argv;
 
 const defaultLocale = "pt-BR";
 
@@ -33,8 +37,8 @@ function printPulse({ after, before }) {
 }
 
 const userParameters = {
-  ra: UNI_RA,
-  password: UNI_PASSWORD,
+  ra: login || UNI_RA,
+  password: password || UNI_PASSWORD,
 };
 
 console.log(draw);
