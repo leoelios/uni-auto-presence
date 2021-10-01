@@ -34,7 +34,9 @@ function printWelcome({ username, ra }) {
 
 function printPulse({ after, before }) {
   console.log(
-    `[${new Date().toISOString()}] Checking if exists avaliable for presence mark | STATUS: ${before} -> ${after}`
+    `[${new Date().toLocaleString(
+      defaultLocale
+    )}] Checking if exists avaliable for presence mark | STATUS: ${before} -> ${after}`
   );
 }
 
