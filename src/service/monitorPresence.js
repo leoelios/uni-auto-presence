@@ -6,6 +6,8 @@ const REGISTER_ACTION = "gravar-presenca";
 
 const PRESENCE_ALREADY_REGISTERED = "OK";
 
+UniaraService.declareInterceptor();
+
 async function markPresence() {
   const { data } = await UniaraService.managePresence({
     action: REGISTER_ACTION,

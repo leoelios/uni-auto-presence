@@ -14,6 +14,8 @@ const { login, password } = argv;
 
 const defaultLocale = "pt-BR";
 
+UniaraService.declareInterceptor();
+
 function printWelcome({ username, ra }) {
   const header = `########################## Welcome ${
     username || "elementoX"

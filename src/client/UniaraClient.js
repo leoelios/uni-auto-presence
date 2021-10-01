@@ -1,17 +1,34 @@
 const axios = require("axios");
 const querystring = require("querystring");
 const { constants } = require("http2");
+const { Agent } = require("https");
 const cookieParser = require("../utils/cookieParser");
 
 const MSG_AUTHENTICATED_SUCCESSFULLY =
   "for redirecionado automaticamente clique aqui.";
 
 class UniaraService {
+  static #httpsAgent = new Agent({
+    rejectUnauthorized: false,
+  });
+
   static #service = axios.create({
     baseURL: "https://virtual.uniara.com.br",
   });
 
   static #session;
+
+  static declareInterceptor() {
+    this.#service.interceptors.request.use(
+      (config) => {
+        config.httpsAgent = this.#httpsAgent;
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
+  }
 
   static async index() {
     this.#assertAuthenticated();
